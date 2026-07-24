@@ -22,7 +22,7 @@ BIOVISION-AI is an end-to-end system that:
 ## Installation
 
 ```bash
-cd /path/to/PBL_CURSOR
+cd /path_to_codebase
 pip install -r requirements.txt
 ```
 
@@ -36,16 +36,13 @@ python scripts/create_dummy_data.py --data_root ./data --num_samples 200
 
 ### Option B: HAM10000
 
-1. Get [HAM10000](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T): download `HAM10000_metadata.csv` and image zip.
+1. Get [HAM10000](https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000/data): download `HAM10000_metadata.csv` and image zip.
 2. Unzip images into `data/ham10000_images/` or `data/images/`.
 3. Put `HAM10000_metadata.csv` in `data/`.
 4. CSV must have columns `image_id` and `dx` (values: akiec, bcc, bkl, df, mel, nv, vasc).
+5. Get [HAM10000 Lesion Segmentations](https://www.kaggle.com/datasets/tschandl/ham10000-lesion-segmentations): 
 
-### Option C: ISIC
 
-1. Download from [ISIC Archive](https://www.isic-archive.com/).
-2. Place metadata CSV in `data/` (e.g. `metadata.csv`) with `image_id` and `dx`.
-3. Place images in `data/images/` with filenames matching `image_id`.
 
 ### Expected structure
 
@@ -108,7 +105,7 @@ Example:
 curl -X POST -F "image=@/path/to/image.jpg" http://localhost:8000/predict
 ```
 
-## Demo UI (Streamlit)
+## Demo UI 
 
 ```bash
 streamlit run frontend/app.py
