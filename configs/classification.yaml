@@ -1,0 +1,48 @@
+# Classification-only training config
+
+seed: 42
+device: cuda
+
+data:
+  root: ./data
+  image_size: 224
+  batch_size: 32
+  num_workers: 4
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  num_classes: 7
+  sources:
+    - name: ham10000
+      metadata_file: HAM10000_metadata.csv
+      image_column: image_id
+      label_column: dx
+      images_dir: ham10000_images
+    - name: isic
+      metadata_file: ISIC_metadata.csv
+      image_column: image_id
+      label_column: dx
+      images_dir: images
+
+classification:
+  num_classes: 7
+  pretrained: true
+  epochs: 50
+  lr: 1e-4
+  weight_decay: 0.01
+  loss: focal
+  focal_gamma: 2.0
+  use_class_weights: true
+  oversample: true
+  k_folds: 5
+  scheduler: cosine # cosine or plateau
+  mixed_precision: true
+  dropout: 0.35
+  checkpoint_dir: ./checkpoints/classification
+  early_stopping_patience: 10
+
+ensemble:
+  models:
+    - efficientnet_b0
+    - convnext_tiny
+  weighted_voting: true
